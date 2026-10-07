@@ -23,7 +23,7 @@ header{gap:12px;padding:15px 20px}.brand{letter-spacing:1px;line-height:1.5}
 footer{margin:0 18px;line-height:1.8}.section-heading{gap:12px}
 }
 @media(max-width:359px){header{padding:12px 16px}.brand{font-size:12px}nav a{font-size:10px}.brand span{font-size:18px}.trip-image{min-height:230px}.hero-content p br{display:none}}
-</style>
+.atlas-toolbar>div{flex-wrap:wrap}.atlas-toolbar{align-items:flex-start;flex-wrap:wrap}.atlas-node-list{list-style:none;padding:0;margin:12px 0}.atlas-node-list li{padding:8px 0;border-bottom:1px solid var(--line)}.atlas-node-list a{display:inline-flex;align-items:center;min-height:44px;text-decoration:underline}.atlas-node-list small{display:block;color:var(--muted);font-size:11px}#atlas-nodes details{border-top:1px solid var(--line);margin-top:12px}#atlas-nodes summary{padding:14px 0;min-height:48px;cursor:pointer}</style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"></head>
 <body>
 <header><a class="brand" href="./" aria-label="旅行收藏首頁"><span aria-hidden="true">◒</span>我們的旅行收藏</a><nav><a href="#collection">翻開旅行地圖 ↗</a></nav></header>
@@ -35,11 +35,11 @@ footer{margin:0 18px;line-height:1.8}.section-heading{gap:12px}
 </section>
 <section class="collection atlas-section" aria-labelledby="atlas-title">
 <div class="section-heading"><div><span class="eyebrow">OUR WORLD / 世界旅行地圖</span><h2 id="atlas-title">下一段故事，在地圖上。</h2></div><span class="count">台灣 · 南投、九份與基隆郵輪</span></div>
-<div class="atlas-toolbar"><p>點擊標記，翻開旅行。世界視角點台灣，可選擇南投、九份或郵輪旅行。</p><div><button id="world-view" type="button">看世界</button><button id="taiwan-view" type="button">看台灣</button><button id="nantou-view" type="button">看南投三站</button><button id="jiufen-view" type="button">看九份山海</button></div></div>
+<div class="atlas-toolbar"><p>點擊標記，選擇對應的行程節點。放大可看更多地點，同區域的活動合併列出。</p><div><button id="world-view" type="button">看世界</button><button id="taiwan-view" type="button">看全部節點</button><button id="nantou-view" type="button">看南投行程</button><button id="jiufen-view" type="button">看九份山海</button><button id="cruise-view" type="button">看郵輪航程</button></div></div>
 <div id="world-map" role="region" aria-label="可縮放的世界旅行地圖"><p class="map-loading">世界地圖載入中…</p></div>
 <div class="atlas-legend"><span><i></i> 南投 · 已規劃　<span style="color:#936443">●</span> 九份 · 旅行紀錄</span><a href="./2026-nantou-double-ten/">台灣 · 南投｜2026.10.08–10.11 ↗</a><a href="./2026-jiufen-sunny/">台灣 · 九份｜2026.07.31–08.02 ↗</a><a href="./2026-star-navigator/">基隆 · 郵輪｜2026.03.27–03.29 ↗</a></div>
-<p class="map-help">地點標記為區域概略位置。地圖需連網，可拖曳與用 ＋／－ 縮放；行車導航請使用旅行頁的 Google Maps。</p>
-</section><section class="collection" id="collection" aria-labelledby="collection-title">
+<p class="map-help">地點標記為區域概略位置，非店家精確座標。郵輪海域為方向示意，非實際航跡，未安排與那國島登岸。地圖需連網，可拖曳與用 ＋／－ 縮放；行車導航請使用旅行頁的 Google Maps。</p>
+<div id="atlas-nodes" aria-label="全部旅行行程節點"></div></section><section class="collection" id="collection" aria-labelledby="collection-title">
 <div class="section-heading"><div><span class="eyebrow">THE COLLECTION / 旅行足跡</span><h2 id="collection-title">一起出發的日子</h2></div><span class="count">03 趟旅行</span></div>
 <a class="trip" href="./2026-nantou-double-ten/" aria-label="開啟南投四天三夜，雙十旅行地圖">
 <div class="trip-image"><img src="./2026-nantou-double-ten/assets/treeview.jpg" alt="清境雲南風情山莊的山景與樹屋景觀" loading="lazy"><span class="badge">2026 · 雙十假期</span></div>
@@ -52,35 +52,4 @@ footer{margin:0 18px;line-height:1.8}.section-heading{gap:12px}
 </main>
 <footer><span>我們的旅行收藏 · 一起走，慢慢看。</span><span>首頁照片：日月潭向山、清境雲南風情。九份照片：Supanut Arunoprayote / CC BY 4.0。各照片來源詳見旅行頁。</span></footer>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-(function(){
-const container=document.getElementById('world-map');
-if(!window.L){container.innerHTML='<p class="map-loading">地圖暫時無法載入。你仍可從下方旅行卡片進入南投行程。</p>';return;}
-container.innerHTML='';
-const map=L.map('world-map',{scrollWheelZoom:false,minZoom:0,maxZoom:17,worldCopyJump:true});
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
-const destination='./2026-nantou-double-ten/';
-const icon=L.divIcon({className:'journey-pin',html:'<span></span>',iconSize:[24,30],iconAnchor:[12,28],tooltipAnchor:[14,-20]});
-const overall=L.marker([23.97,120.97],{icon:icon,title:'台灣南投：點擊進入雙十旅行地圖',alt:'南投旅行入口'}).bindTooltip('台灣 · 南投 ↗',{permanent:true,direction:'left',className:'map-label'});
-overall.on('click',()=>{window.location.href=destination;});
-const stops=L.layerGroup();
-[['埔里',23.966,120.967],['日月潭',23.853,120.916],['清境',24.045,121.157]].forEach(function(p){
-L.marker([p[1],p[2]],{icon:icon,title:p[0]+'：點擊進入南投行程',alt:p[0]+'旅行入口'}).bindTooltip(p[0]+' ↗',{permanent:true,direction:'right',className:'map-label'}).on('click',()=>{window.location.href=destination;}).addTo(stops);
-});
-const jiufenIcon=L.divIcon({className:'journey-pin',html:'<span style="background:#936443"></span>',iconSize:[24,30],iconAnchor:[12,28],tooltipAnchor:[14,-20]});
-const jiufen=L.marker([25.109,121.845],{icon:jiufenIcon,title:'九份旅行紀錄：點擊開啟',alt:'九份旅行紀錄入口'}).bindTooltip('九份 · 旅行紀錄 ↗',{permanent:true,direction:'right',className:'map-label'}).on('click',()=>{window.location.href='./2026-jiufen-sunny/';});
-const taiwan=L.marker([24.4,121],{icon:icon,title:'台灣：選擇旅行',alt:'台灣旅行收藏入口'}).bindTooltip('台灣 · 3 趟旅行',{permanent:true,direction:'left',className:'map-label'}).bindPopup('<b>我們的台灣旅行</b><p><a href="./2026-nantou-double-ten/">南投四天三夜，雙十旅行地圖 ↗</a></p><p><a href="./2026-jiufen-sunny/">把君窩搬去九份天氣晴 ↗</a></p><p><a href="./2026-star-navigator/">探索星號・與那國島公海巡遊 ↗</a></p>');
-const cruise=L.marker([25.15,121.75],{icon:jiufenIcon,title:'基隆出發：探索星號郵輪旅行',alt:'探索星號旅行紀錄入口'}).bindTooltip('基隆 · 郵輪旅行 ↗',{direction:'left',className:'map-label'}).on('click',()=>{window.location.href='./2026-star-navigator/';});
-function updateMarkers(){
-if(map.getZoom()<6){map.removeLayer(overall);map.removeLayer(stops);map.removeLayer(jiufen);map.removeLayer(cruise);taiwan.addTo(map);}
-else{map.removeLayer(taiwan);jiufen.addTo(map);cruise.addTo(map);if(map.getZoom()>=9){map.removeLayer(overall);stops.addTo(map);}else{map.removeLayer(stops);overall.addTo(map);}}
-}
-map.on('zoomend',updateMarkers);
-function world(){map.fitWorld({padding:[15,15]});}
-document.getElementById('world-view').onclick=world;
-document.getElementById('taiwan-view').onclick=()=>map.fitBounds([[21.85,119.3],[25.4,122.1]],{padding:[35,35]});
-document.getElementById('nantou-view').onclick=()=>map.fitBounds([[23.82,120.86],[24.08,121.23]],{padding:[55,55],maxZoom:11});
-document.getElementById('jiufen-view').onclick=()=>map.fitBounds([[25.03,121.8],[25.15,121.97]],{padding:[40,40],maxZoom:11});
-world();updateMarkers();
-})();
-</script></body></html>
+<script src="travel-map-data.js"></script><script src="travel-map.js"></script></body></html>

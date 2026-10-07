@@ -23,4 +23,7 @@ $('photo-sources').innerHTML=PHOTO_SOURCES.map(s=>`<a href="${s.url}" target="_b
 fetch('manual.html').then(r=>r.ok?r.text():Promise.reject()).then(t=>{$('full-manual').innerHTML=t;}).catch(()=>{$('full-manual').innerHTML='<p>完整手冊暫時無法載入，請開啟頁尾的 Google Docs 文字手冊。</p>';});
 $('back-top').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 let printClones=[];$('print').addEventListener('click',()=>{document.querySelector('.manual details').open=true;printClones=[];for(let n=0;n<4;n++){if(n===selectedDay)continue;const box=document.createElement('section');box.className='section full-day-print';box.innerHTML=`<h2>${DAYS[n].date} ${esc(DAYS[n].title)}</h2><p>${esc(DAYS[n].direction)}</p>`+DAYS[n].stops.map(s=>`<p><b>${esc(s.time)} ${esc(s.title)}</b><br>${esc(s.desc)}${s.drive?'<br>車程估算：'+esc(s.drive):''}</p>`).join('');$('journey').after(box);printClones.push(box);}window.print();});window.addEventListener('afterprint',()=>{printClones.forEach(x=>x.remove());printClones=[];});
-selectDay(selectedDay);showPlace('hotel',false);
+const entry=new URLSearchParams(location.search);
+const entryDay=Number(entry.get('day'));
+if(entry.has('day')&&Number.isInteger(entryDay)&&entryDay>=0&&entryDay<DAYS.length)selectedDay=entryDay;
+selectDay(selectedDay);showPlace(Object.hasOwn(PLACES,entry.get('place'))?entry.get('place'):'hotel',false);
