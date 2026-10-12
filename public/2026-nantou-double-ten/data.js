@@ -1,84 +1,698 @@
 const PLACES = {
- banqiao:{name:'板橋車站',q:'板橋車站',note:'10/8 19:00 出發會合點'},
- castle:{name:'藍色城堡・茱諾法式甜點',q:'藍色城堡 茱諾法式甜點 南投縣埔里鎮中山路四段185號',address:'埔里鎮中山路四段185號',phone:'049-2916890',extra:'備用 0928-535366；晚間入住必須先確認',image:'castle.webp'},
- xiangshan:{name:'向山遊客中心',q:'向山遊客中心 南投縣魚池鄉中山路599號',address:'魚池鄉中山路599號',phone:'049-2341256',extra:'停車導至向山遊客中心停車場'},
- xiangpark:{name:'向山遊客中心停車場',q:'向山遊客中心停車場 日月潭'},
- idapark:{name:'伊達邵中正停車場',q:'伊達邵中正停車場 日月潭'},
- lusihan:{name:'麓司岸',q:'麓司岸 南投縣魚池鄉文化街108號',address:'魚池鄉文化街108號',phone:'0982-865360',extra:'另有 049-2850451；訂位時核對文化街108號'},
- tea:{name:'日月作物 老欉紅玉',q:'日月作物 老欉紅玉專門店 南投縣魚池鄉修正巷4-3號',address:'魚池鄉修正巷4-3號',phone:'0911-690545',extra:'營業與停車待電話確認'},
- shadow:{name:'山影人宅',q:'山影人宅 南投縣魚池鄉修正巷39-11號',address:'魚池鄉修正巷39-11號',phone:'049-2896363',extra:'另有 0915-519966；確認可用號碼、低消與停車'},
- hotel:{name:'米洛克景觀飯店',q:'米洛克景觀飯店 南投縣魚池鄉中正路5號',address:'魚池鄉水社村中正路5號',phone:'049-2856820',extra:'訂房方案無早餐；停車與入住時間待確認',image:'hotel.jpg'},
- dinner:{name:'好客食事処',q:'好客食事処 南投縣魚池鄉瓊文巷39-10號',address:'魚池鄉瓊文巷39-10號',phone:'0983-515897',extra:'確認18:30雙人晚餐與停車'},
- breakfast:{name:'魚池茶族早餐店',q:'魚池茶族早餐店 南投縣魚池鄉魚池街226號',address:'魚池鄉魚池街226號',phone:'049-2895715',extra:'補入的早餐候選；公開列表，營業待確認'},
- courtyard:{name:'肆盒院',q:'肆盒院 南投縣埔里鎮育英街141巷',address:'埔里鎮育英街141巷',phone:'049-2422279',extra:'確認10:00營業與店家停車處'},
- dream:{name:'夢鄉引',q:'夢鄉引 南投縣埔里鎮中華路61號',address:'埔里鎮中華路61號',phone:'049-2423393',extra:'個別網路地址不一致；訂位時核對現址'},
- fang:{name:'方正谷地方菜 埔里店',q:'方正谷地方菜 南投縣埔里鎮仁愛路525號',address:'埔里鎮仁愛路525號',phone:'049-2424200',extra:'請勿導航至魚池養鱒場或台中分店'},
- tree:{name:'雲南風情景觀山莊',q:'雲南風情景觀山莊 南投縣仁愛鄉榮光巷50之1號',address:'仁愛鄉大同村榮光巷50之1號',phone:'049-2803577',extra:'手機0928-763577；LINE ID 0492803577',image:'treehouse.jpg'},
- yunnan:{name:'雲南十八怪景觀餐廳',q:'雲南十八怪景觀餐廳 南投縣仁愛鄉榮光巷50之1號',address:'仁愛鄉大同村榮光巷50之1號',phone:'049-2803577',extra:'與山莊同址，確認雙人點餐與需預訂料理'},
- grass:{name:'青青草原北端售票口',q:'清境農場 青青草原 北端售票口',address:'仁愛鄉清境農場 青青草原',phone:'049-2802748',extra:'農場旅遊資訊；08:00開園，週日09:30綿羊秀依當日公告'},
- home:{name:'新店安坑',q:'新店安坑',note:'10/11 18:00前到家；導航請改成實際門牌'}
+  "banqiao": {
+    "name": "板橋出發",
+    "q": "板橋車站",
+    "latlng": [
+      25.014,
+      121.463
+    ]
+  },
+  "castle": {
+    "name": "藍色城堡・茱諾法式甜點",
+    "q": "藍色城堡 茱諾法式甜點 埔里",
+    "latlng": [
+      23.969,
+      120.931
+    ]
+  },
+  "hizuki": {
+    "name": "日月町",
+    "q": "日月町 複合式商場 埔里",
+    "latlng": [
+      23.968,
+      120.932
+    ]
+  },
+  "brewery": {
+    "name": "埔里酒廠",
+    "q": "埔里酒廠 中山路三段219號",
+    "latlng": [
+      23.968,
+      120.964
+    ]
+  },
+  "feeling": {
+    "name": "Feeling18 LAB 烘研所",
+    "q": "Feeling18 LAB 烘研所 埔里",
+    "latlng": [
+      23.961,
+      120.946
+    ]
+  },
+  "dinner": {
+    "name": "好客食事処",
+    "q": "好客食事処 魚池",
+    "latlng": [
+      23.902,
+      120.934
+    ]
+  },
+  "hotel": {
+    "name": "日月潭湖景住宿",
+    "q": "日月潭 水社",
+    "latlng": [
+      23.872,
+      120.921
+    ],
+    "approx": true
+  },
+  "sunisle": {
+    "name": "日嶼早午餐",
+    "q": "日嶼早午餐 伊達邵 日月潭",
+    "latlng": [
+      23.849,
+      120.931
+    ]
+  },
+  "ita": {
+    "name": "伊達邵碼頭",
+    "q": "伊達邵碼頭",
+    "latlng": [
+      23.849,
+      120.929
+    ]
+  },
+  "cruise": {
+    "name": "日月潭遊湖",
+    "q": "日月潭",
+    "latlng": [
+      23.857,
+      120.923
+    ]
+  },
+  "xiangshan": {
+    "name": "向山遊客中心",
+    "q": "向山遊客中心",
+    "latlng": [
+      23.852,
+      120.902
+    ]
+  },
+  "oldtea": {
+    "name": "日月老茶廠",
+    "q": "日月老茶廠 魚池",
+    "latlng": [
+      23.894,
+      120.923
+    ]
+  },
+  "yunnan": {
+    "name": "清境晚餐・雲南十八怪",
+    "q": "雲南十八怪 景觀餐廳 清境",
+    "latlng": [
+      24.04,
+      121.155
+    ]
+  },
+  "tree": {
+    "name": "清境樹屋・雲南風情景觀山莊",
+    "q": "雲南風情景觀山莊",
+    "latlng": [
+      24.04,
+      121.155
+    ]
+  },
+  "mos": {
+    "name": "清境商場・MOS",
+    "q": "摩斯漢堡 清境店 定遠新村26-1號",
+    "latlng": [
+      24.044,
+      121.157
+    ]
+  },
+  "grass": {
+    "name": "清境農場・青青草原",
+    "q": "清境農場 青青草原",
+    "latlng": [
+      24.056,
+      121.162
+    ]
+  },
+  "dongcaotun": {
+    "name": "東草屯休息站",
+    "q": "東草屯休息站 玉屏路55-77號",
+    "latlng": [
+      24.005,
+      120.733
+    ]
+  },
+  "home": {
+    "name": "北返",
+    "q": "新北市",
+    "latlng": [
+      25.005,
+      121.485
+    ]
+  }
 };
-const STAYS=[
- {place:'castle',date:'10/8 · 第一晚',title:'住進藍色城堡',desc:'埔里山下的小城堡。晚間抵達後休息，隔天早上再慢慢看建築、吃早餐。',note:'22:00–23:00 Late Check-in 待確認',photo:'castle.webp',alt:'藍色城堡茱諾法式甜點的藍色外牆與歐式屋頂'},
- {place:'hotel',date:'10/9 · 第二晚',title:'在日月潭看湖景',desc:'米洛克位於日月潭入口九龍口一帶。傍晚回飯店休息，隔天到魚池吃早餐。圖片為飯店房型參考，非已訂房型。',note:'米洛克景觀飯店 · 無早餐方案',photo:'hotel.jpg',alt:'米洛克景觀飯店湖景浴室參考照片，非已訂房型'},
- {place:'tree',date:'10/10 · 第三晚',title:'到清境住一晚樹屋',desc:'雲南風情景觀山莊・360°地標景樹屋。把下午留給住宿，晚上一起喝咖啡或茶。',note:'房型名稱需與訂房確認對照',photo:'treehouse.jpg',alt:'雲南風情官網的僾伲樹屋參考照片'}
+const DAYS = [
+  {
+    "date": "10/8 星期四",
+    "title": "夜裡抵達埔里，住進藍色城堡。",
+    "direction": "新北 → 埔里。第一晚從城堡的燈光開始。",
+    "route": [
+      "板橋出發",
+      "埔里・藍色城堡"
+    ],
+    "photo": {
+      "file": "record-9184.webp",
+      "alt": "夜晚點燈的藍色城堡外觀",
+      "credit": "使用者實拍",
+      "url": null,
+      "kind": "original"
+    },
+    "stops": [
+      {
+        "place": "banqiao",
+        "time": "出發",
+        "title": "從新北往南投",
+        "desc": "從板橋出發，到埔里展開四天三夜。出發時間未另補記。",
+        "photos": []
+      },
+      {
+        "place": "castle",
+        "time": "22:00–23:10",
+        "title": "第一晚・藍色城堡",
+        "desc": "抵達後留下城堡的夜景。第一晚住在埔里，隔天從城堡開始走。",
+        "photos": [
+          {
+            "file": "record-9184.webp",
+            "alt": "藍色城堡夜間外觀",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9139.webp",
+            "alt": "城堡入口與夜間燈光",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "10/9 星期五",
+    "title": "在埔里逛一整天，晚上到魚池。",
+    "direction": "藍色城堡 → 日月町 → 埔里酒廠 → Feeling18 LAB → 好客食事処 → 日月潭住宿。",
+    "route": [
+      "城堡早餐與甜點",
+      "日月町",
+      "埔里酒廠",
+      "Feeling18 LAB",
+      "魚池・好客食事処",
+      "日月潭湖景住宿"
+    ],
+    "photo": {
+      "file": "record-9257.webp",
+      "alt": "日月町白色商場建築",
+      "credit": "使用者實拍",
+      "url": null,
+      "kind": "original"
+    },
+    "stops": [
+      {
+        "place": "castle",
+        "time": "09:16–11:27",
+        "title": "城堡早餐、甜點與公共空間",
+        "desc": "早上留在城堡吃早餐與甜點，再出發到埔里。照片選用公共空間與建築。",
+        "photos": [
+          {
+            "file": "record-9197.webp",
+            "alt": "城堡木造公共空間",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9200.webp",
+            "alt": "白天的藍色城堡外觀",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9202.webp",
+            "alt": "城堡室內木造天花板",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "hizuki",
+        "time": "12:44–13:44",
+        "title": "日月町",
+        "desc": "在日月町逛商場、喝飲品，再繼續埔里的下午行程。",
+        "photos": [
+          {
+            "file": "record-9257.webp",
+            "alt": "日月町白色建築與戶外廣場",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "brewery",
+        "time": "14:23–14:55",
+        "title": "埔里酒廠",
+        "desc": "到埔里酒廠參觀，照片留下館內酒器展示。",
+        "photos": [
+          {
+            "file": "brewery-space.webp",
+            "alt": "埔里酒廠旗艦館展示空間，官方參考照",
+            "credit": "台灣菸酒官方",
+            "url": "https://event.ttl.com.tw/pl/about/01main.aspx?cateid=248",
+            "kind": "reference"
+          },
+          {
+            "file": "record-9289.webp",
+            "alt": "埔里酒廠展示的紅色酒器",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "feeling",
+        "time": "16:22–17:01",
+        "title": "Feeling18 LAB 下午茶",
+        "desc": "在 Feeling18 LAB 停留，這一段是咖啡與甜點的時間。",
+        "photos": [
+          {
+            "file": "feelinglab-exterior.webp",
+            "alt": "Feeling18 LAB 烘研所外觀，網路參考照",
+            "credit": "涼子是也",
+            "url": "https://lyes.tw/feeling18-lab/",
+            "kind": "reference"
+          }
+        ]
+      },
+      {
+        "place": "dinner",
+        "time": "17:27–18:24",
+        "title": "好客食事処晚餐",
+        "desc": "離開埔里後到魚池，在好客食事処吃晚餐，接著前往湖景住宿。",
+        "photos": [
+          {
+            "file": "haoke-space.webp",
+            "alt": "好客食事処室內空間，官方參考照",
+            "credit": "日月潭國家風景區管理處",
+            "url": "https://www.sunmoonlake.gov.tw/zh-TW/Shop/Stores?A=45&Id=270&P=2",
+            "kind": "reference"
+          },
+          {
+            "file": "record-9361.webp",
+            "alt": "好客食事処戶外招牌",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "hotel",
+        "time": "第二晚",
+        "title": "住在日月潭湖邊",
+        "desc": "第二晚的住宿，隔天早晨留下房內湖景。旅宿名稱尚未確認，地圖只標示水社一帶。",
+        "photos": [
+          {
+            "file": "record-9419.webp",
+            "alt": "住宿房內窗景與日月潭湖面",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "10/10 星期六",
+    "title": "從日月潭遊湖，到清境住樹屋。",
+    "direction": "湖景住宿 → 日嶼早午餐 → 伊達邵與遊湖 → 向山 → 日月老茶廠 → 清境晚餐與樹屋。",
+    "route": [
+      "日月潭湖景住宿",
+      "日嶼早午餐・伊達邵",
+      "日月潭遊湖",
+      "向山遊客中心",
+      "日月老茶廠",
+      "清境・晚餐與樹屋"
+    ],
+    "photo": {
+      "file": "record-9479.webp",
+      "alt": "向山遊客中心水池與日月潭景色",
+      "credit": "使用者實拍",
+      "url": null,
+      "kind": "original"
+    },
+    "stops": [
+      {
+        "place": "hotel",
+        "time": "07:31–11:02",
+        "title": "湖景住宿的早晨",
+        "desc": "早上從房間望向日月潭，離開住宿後前往伊達邵。",
+        "photos": [
+          {
+            "file": "record-9364.webp",
+            "alt": "早晨平靜的日月潭湖面",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9418.webp",
+            "alt": "日月潭住宿房間與湖景窗戶",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "sunisle",
+        "time": "11:35–12:24",
+        "title": "日嶼早午餐",
+        "desc": "在伊達邵的日嶼早午餐用餐。照片採店家官方的戶外座位與餐點參考照；餐點照並非當次點餐紀錄。",
+        "photos": [
+          {
+            "file": "sunisle-space.webp",
+            "alt": "日嶼戶外木棧板座位，官方參考照",
+            "credit": "日嶼官方",
+            "url": "https://sunisletw.com/sun-moon-lake-brunch/",
+            "kind": "reference"
+          },
+          {
+            "file": "sunisle-food.webp",
+            "alt": "日嶼馬告嫩煎雞腿拼盤，官方餐點參考照",
+            "credit": "日嶼官方",
+            "url": "https://sunisletw.com/sun-moon-lake-brunch/",
+            "kind": "reference"
+          }
+        ]
+      },
+      {
+        "place": "ita",
+        "time": "12:51–13:02",
+        "title": "伊達邵碼頭",
+        "desc": "早午餐後到伊達邵碼頭，接著搭船遊湖。",
+        "photos": [
+          {
+            "file": "ita-0.webp",
+            "alt": "伊達邵碼頭八角涼亭與湖景，官方參考照",
+            "credit": "日月潭國家風景區管理處",
+            "url": "https://www.sunmoonlake.gov.tw/zh-tw/attractions/Attractions?A=20&Id=149",
+            "kind": "reference"
+          }
+        ]
+      },
+      {
+        "place": "cruise",
+        "time": "13:02–15:26",
+        "title": "搭船遊日月潭",
+        "desc": "午後搭船遊湖，照片留下沿途碼頭與湖景。中途碼頭與下船順序尚未完整確認，這裡合併呈現遊湖紀錄。",
+        "photos": [
+          {
+            "file": "record-9444.webp",
+            "alt": "遊湖途中碼頭廣場與遠山",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9445.webp",
+            "alt": "日月潭碼頭廣場、湖面與山景",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "xiangshan",
+        "time": "16:03–16:25",
+        "title": "向山遊客中心",
+        "desc": "到向山看清水模建築與水池倒影，再前往茶廠。",
+        "photos": [
+          {
+            "file": "record-9479.webp",
+            "alt": "向山遊客中心水池倒映山景",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9494.webp",
+            "alt": "向山水池與遠方湖面",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "oldtea",
+        "time": "16:46–17:07",
+        "title": "日月老茶廠",
+        "desc": "在日月老茶廠看建築與製茶設備，之後離開湖區往清境。",
+        "photos": [
+          {
+            "file": "record-9550.webp",
+            "alt": "日月老茶廠正面外觀",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9537.webp",
+            "alt": "日月老茶廠室內製茶設備",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "yunnan",
+        "time": "18:52–19:09",
+        "title": "清境晚餐",
+        "desc": "上山後用晚餐。地點依原行程與照片位置對照雲南十八怪；圖片為餐廳官方外觀參考照。",
+        "photos": [
+          {
+            "file": "yunnan-dinner.webp",
+            "alt": "雲南十八怪景觀餐廳外觀，官方參考照",
+            "credit": "雲南風情官方",
+            "url": "https://www.yunnan.com.tw/",
+            "kind": "reference"
+          }
+        ]
+      },
+      {
+        "place": "tree",
+        "time": "第三晚",
+        "title": "住進清境樹屋",
+        "desc": "第三晚住在清境樹屋。夜間與翌日凌晨的住宿照片歸在同一晚；這裡選用隔天拍攝的建築外觀。",
+        "photos": [
+          {
+            "file": "record-9671.webp",
+            "alt": "清境樹屋建築外觀",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "10/11 星期日",
+    "title": "樹屋早晨、青青草原，再下山北返。",
+    "direction": "清境樹屋 → 清境商場與 MOS → 青青草原 → 東草屯休息站 → 北返。",
+    "route": [
+      "清境樹屋",
+      "清境商場・MOS",
+      "青青草原",
+      "下山・東草屯休息站",
+      "北返"
+    ],
+    "photo": {
+      "file": "record-9718.webp",
+      "alt": "青青草原與清境山景",
+      "credit": "使用者實拍",
+      "url": null,
+      "kind": "original"
+    },
+    "stops": [
+      {
+        "place": "tree",
+        "time": "10:35–11:07",
+        "title": "樹屋的早晨",
+        "desc": "早上在住宿看山景與樹屋，接著前往清境商場。",
+        "photos": [
+          {
+            "file": "record-9609.webp",
+            "alt": "樹屋陽台望向層疊山景",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9612.webp",
+            "alt": "樹屋陽台與山莊景觀",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9671.webp",
+            "alt": "樹屋外觀",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "mos",
+        "time": "11:25–11:42",
+        "title": "清境商場與 MOS",
+        "desc": "在清境商場停留，照片記錄了 MOS 清境店。這裡使用店內點餐區的歷史參考照，並非當次點餐或現行菜單。",
+        "photos": [
+          {
+            "file": "mos-shop.webp",
+            "alt": "MOS 清境店點餐區，2015年網路參考照",
+            "credit": "PeiGoGo",
+            "url": "https://www.peigogo.com/2015/01/mos.html",
+            "kind": "reference"
+          }
+        ]
+      },
+      {
+        "place": "grass",
+        "time": "12:27–14:04",
+        "title": "青青草原・綿羊與山景",
+        "desc": "到清境農場看綿羊、草原與山景，午後再下山。未另記錄表演觀看情形。",
+        "photos": [
+          {
+            "file": "record-9697.webp",
+            "alt": "青青草原樹下的綿羊",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9718.webp",
+            "alt": "青青草原坡地與清境山景",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "record-9734.webp",
+            "alt": "青青草原與遠方山脈",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          }
+        ]
+      },
+      {
+        "place": "dongcaotun",
+        "time": "15:49–16:11",
+        "title": "東草屯休息站",
+        "desc": "下山後在國道六號的東草屯休息站休息。以當次站體實拍搭配網路景觀參考照，作為這趟旅程最後一站。",
+        "photos": [
+          {
+            "file": "dongcaotun-scenery.webp",
+            "alt": "東草屯休息站建築與山景，網路參考照",
+            "credit": "臺北設計獎",
+            "url": "https://taipeidaward.taipei/Post/182395",
+            "kind": "reference"
+          },
+          {
+            "file": "record-9762.webp",
+            "alt": "東草屯休息站戶外建築與山景",
+            "credit": "使用者實拍",
+            "url": null,
+            "kind": "original"
+          },
+          {
+            "file": "dongcaotun-view.webp",
+            "alt": "東草屯休息站外觀，新東陽官方參考照",
+            "credit": "新東陽官方",
+            "url": "https://www.hty.com.tw/location.php?act=view&no=14",
+            "kind": "reference"
+          }
+        ]
+      },
+      {
+        "place": "home",
+        "time": "返程",
+        "title": "繼續北返",
+        "desc": "離開休息站後北返。實際到家時間未補記。",
+        "photos": []
+      }
+    ]
+  }
 ];
-const DAYS=[
- {date:'10/8 星期四',title:'晚上出發，先到山下睡一晚。',direction:'今天只有一件事：從新北往南開，到南投埔里。第一晚先留在山下，隔天再往日月潭走。',photo:'castle.webp',caption:'第一晚 · 藍色城堡外觀（參考照片，白天拍攝）',alt:'第一晚住宿藍色城堡外觀',route:['板橋車站','國道南下','埔里藍色城堡'],key:'19:00板橋出發。晚間入住必須先跟住宿說好，延誤時直接聯絡店家。',rain:'夜間如果下雨，保留服務區短休息，抵達後直接入住。戶外拍照留到明天；延誤時聯絡住宿。',stops:[
- {time:'18:00–18:40',title:'先吃晚餐，再集合',desc:'在出發前吃晚餐，備好飲水、點心與晚間要用的小包。今晚不安排抵達埔里後找餐廳。'},
- {time:'19:00',title:'板橋車站會合，往南出發',desc:'裝行李後出發。20:30左右視需要在國道服務區停15–20分鐘。',place:'banqiao',to:'castle',drive:'一般約3–4小時；休息與塞車另計'},
- {time:'22:00–23:00',title:'藍色城堡晚間入住',desc:'預留抵達窗口。停車、夜間入口與最晚入住時間要先取得店家確認；抵達後休息。',place:'castle',meta:'當晚咖啡／茶採自備；住客早餐供應待確認'}]},
- {date:'10/9 星期五',title:'從城堡到湖邊，再到魚池喝茶。',direction:'早上從埔里往南到日月潭。向山在湖的西側，伊達邵在東南側；午餐後離開湖邊到北方的魚池，傍晚回湖邊住宿。',photo:'lake.jpg',caption:'向山遊客中心 · 建築、水池與湖邊散步',alt:'日月潭向山遊客中心清水模建築',route:['埔里城堡','向山（湖西側）','伊達邵（東南側）','魚池茶與咖啡','米洛克（九龍口）','魚池晚餐 → 回飯店'],key:'日月作物與山影人宅，選一間主要內用就好。若久候，另一間短停或取消，下午不必趕。',rain:'向山縮短為30–45分鐘遮蔽／室內可開放區。伊達邵保留已訂午餐，取消湖邊久走；茶與咖啡擇一室內久坐，提早回飯店。大雨強風時取消戶外散步。',stops:[
- {time:'08:30–09:30',title:'城堡早餐與晨間拍照',desc:'08:30住客早餐是否提供須先確認；若不供應，用前晚備妥的麵包。茱諾甜點待店家可供應時再享用。',place:'castle',to:'xiangpark',drive:'09:45退房出發，約35–50分鐘到向山'},
- {time:'10:30–11:45',title:'向山遊客中心，看湖與建築',desc:'停車後走走湖邊與清水模建築。不用環湖走一大圈，保留輕鬆散步與拍照時間。',place:'xiangshan',from:'xiangpark',to:'idapark',drive:'12:00出發，沿湖開約25–35分鐘',rainDesc:'改在遮蔽建築／室內開放區短停30–45分鐘，取消長步道。',meta:'停車：向山遊客中心停車場'},
- {time:'13:00–14:00',title:'麓司岸雙人午餐',desc:'車停伊達邵中正停車場，步行約5–15分鐘到文化街108號。餐後14:00–14:30在碼頭／老街短散步。',place:'lusihan',from:'idapark',mode:'walking',drive:'停車場至餐廳步行約5–15分鐘',rainDesc:'保留室內午餐；餐後不安排長時間碼頭散步。',meta:'需預約13:00雙人座位'},
- {time:'14:30–16:00',title:'離開湖邊，到日月作物喝紅玉',desc:'14:30從伊達邵出發，15:30–16:00品茶或買茶。停車先問店家，不堵住住戶與農路。',place:'tea',from:'idapark',drive:'約30–45分鐘到魚池',rainDesc:'茶與咖啡只選一間室內久坐；這裡可作主要選擇。',meta:'營業時間與最後接客待確認'},
- {time:'16:10–17:00',title:'山影人宅，留一杯咖啡的時間',desc:'與日月作物同在魚池修正巷一帶，約5–10分鐘。若前一店久候，這站改短停／外帶或取消。',place:'shadow',from:'tea',drive:'約5–10分鐘',rainDesc:'若已在日月作物內用，就取消這站；若改選這裡，保留室內座位。',meta:'確認低消、預約與合法停車'},
- {time:'17:15–18:00',title:'米洛克入住，回到湖邊',desc:'先辦入住、放行李、看湖景。訂房方案無早餐，明天到魚池吃。',place:'hotel',from:'shadow',drive:'約15–25分鐘'},
- {time:'18:30–19:45',title:'好客食事処晚餐',desc:'從飯店再往魚池吃晚餐。20:15左右回米洛克休息；來回各約15–25分鐘。',place:'dinner',from:'hotel',drive:'約15–25分鐘',returnTo:'hotel',meta:'先確認營業、18:30座位與停車'}]},
- {date:'10/10 星期六',title:'先在埔里慢慢吃，再往清境上山。',direction:'從日月潭往北經魚池，回到埔里。午餐後轉往東北，沿台14與台14甲上山到清境；今天不直接從湖邊跨山。',photo:'treeview.jpg',caption:'雲南風情樹屋室內浴池 · 官方房型參考照片',alt:'雲南風情官網樹屋室內浴池參考照片',route:['米洛克（日月潭）','魚池早餐','埔里咖啡與午餐','台14 / 台14甲上山','清境樹屋與山莊晚餐'],key:'下午15:15–15:30入住樹屋，把時間留給住宿。到台14甲約6.2公里處，注意雲南風情／十八怪的入口招牌。',rain:'若有雨霧，午餐後提早上山、入住休息；陽台拍照與觀星視天候，晚上在山莊餐廳用餐，不再開車跑遠。',stops:[
- {time:'08:00–08:45',title:'退房後，到魚池吃早餐',desc:'早餐候選為魚池茶族早餐店，魚池街226號。先確認營業；也可用前晚準備的麵包作備案。',place:'breakfast',from:'hotel',drive:'約10–20分鐘',meta:'米洛克無早餐，這間為補入候選'},
- {time:'09:15–11:15',title:'回埔里，肆盒院咖啡與輕食',desc:'09:15–10:00移動到埔里。10:00–11:15在肆盒院休息，營業時間與店家停車處待確認。',place:'courtyard',from:'breakfast',drive:'魚池至埔里約25–40分鐘'},
- {time:'11:45–13:00',title:'夢鄉引午餐，或方正谷地方菜',desc:'以夢鄉引為主，方正谷埔里店為備選。肆盒院若吃完整早午餐，這一餐改小份，保留舒服的節奏。',place:'dream',from:'courtyard',drive:'埔里市區約5–15分鐘',alternative:'fang',meta:'夢鄉引訂位時核對中華路61號現址'},
- {time:'13:00–14:45',title:'沿台14與台14甲，往東北上山',desc:'實際車程約70–100分鐘，另加連假緩衝與短休息。地勢逐漸變高，保暖外套與雨具放手提袋。',place:'tree',from:'dream',drive:'約70–100分鐘，連假可能增加',meta:'入口：留意台14甲約6.2公里左側山莊／十八怪招牌'},
- {time:'15:15–15:30',title:'入住360°地標景樹屋',desc:'入住雲南風情景觀山莊。放好行李，留在住宿休息；好天氣再到景觀陽台拍照。房型名稱需與訂房確認對照。',place:'tree',rainDesc:'留在樹屋室內休息，景觀陽台與觀星改為彈性項目。'},
- {time:'18:00–19:15',title:'雲南十八怪晚餐',desc:'在同山莊用餐，依工作人員指引步行。預訂雙人座位，確認份量與需預訂料理。20:00回樹屋喝咖啡／茶與點心。',place:'yunnan',meta:'車停山莊指定位置；晚間留在住宿休息'}]},
- {date:'10/11 星期日',title:'早上看草原，然後慢慢回家。',direction:'青青草原在清境住宿往山上方向。看完回住宿取行李，再沿山路往西南下到埔里；之後上國道往北回新店。',photo:'grass.jpg',caption:'青青草原與羊群 · 景點參考照片',alt:'清境農場青青草原上吃草的羊群',route:['清境山莊早餐','青青草原（天候許可）','回山莊取行李','下山至埔里','國道北返 → 新店安坑'],key:'10:45前離開清境住宿。返家ETA晚於16:30，就取消埔里坐下用餐；早上ETA晚於17:00，先縮短／取消草原。',rain:'持續雨霧時取消青青草原，早餐後取行李、退房提早下山。09:30綿羊秀視農場公告，不以看表演壓縮北返緩衝。',stops:[
- {time:'07:00–07:40',title:'早餐、整理行李、先看路況',desc:'早餐最早供應時間先問山莊；若供應較晚，先用自備早餐。查看Google Maps返家ETA與高速公路1968。',place:'tree'},
- {time:'07:40–09:15',title:'到青青草原，走一段就好',desc:'07:40出發，停在北端入口附近指定停車區。08:00開園，散步到09:15；停車與步行另留時間。',place:'grass',from:'tree',drive:'約10–20分鐘，停車另留時間',skipRain:true,meta:'草原與觀景步道為天候彈性項目'},
- {time:'09:30–10:00',title:'看早場綿羊秀',desc:'週末早場09:30，演出約30分鐘，以當日公告與天候為準。10:00離園，不等10:45馬術秀。',place:'grass',skipRain:true},
- {time:'10:15–10:45',title:'回住宿取行李，退房下山',desc:'10:15–10:40取行李、退房，10:45前離開山莊。早餐時若路況已差，直接把草原取消。',place:'tree',from:'grass',drive:'草原至山莊約10–20分鐘',rainDesc:'早餐後即可整理退房、提早下山；不等待原定草原時段。'},
- {time:'11:45–12:30',title:'埔里午餐，有餘裕才停',desc:'方正谷地方菜埔里店為候選。若直接返家ETA已晚於16:30，取消坐下用餐，改沿途外帶。12:30前北返。',place:'fang',from:'tree',drive:'山莊至埔里約60–90分鐘',meta:'可取消；不安排不可取消的預付訂位',rainDesc:'提早下山後依當下ETA決定是否短停，不必等到11:45。'},
- {time:'16:30–17:00 目標到家',title:'18:00前抵達新店安坑',desc:'埔里到安坑一般約3–4小時，連假可能更久。只保留一次短休息，目的地須在導航改成實際門牌。',place:'home',from:'fang',drive:'一般約3–4小時；連假塞車另計',directFrom:'tree',meta:'硬條件：18:00前到家；以即時路況提早調整'}]}
+const STAYS = [
+  {
+    "day": 0,
+    "place": "castle",
+    "date": "10/8・第一晚",
+    "title": "埔里・藍色城堡",
+    "desc": "城堡夜景，隔天早上再看木造公共空間。",
+    "photo": {
+      "file": "record-9184.webp",
+      "alt": "藍色城堡夜景",
+      "credit": "使用者實拍",
+      "url": null,
+      "kind": "original"
+    }
+  },
+  {
+    "day": 1,
+    "place": "hotel",
+    "date": "10/9・第二晚",
+    "title": "日月潭・湖景住宿",
+    "desc": "從房內看日月潭。旅宿名稱尚未確認。",
+    "photo": {
+      "file": "record-9419.webp",
+      "alt": "日月潭住宿湖景窗戶",
+      "credit": "使用者實拍",
+      "url": null,
+      "kind": "original"
+    }
+  },
+  {
+    "day": 2,
+    "place": "tree",
+    "date": "10/10・第三晚",
+    "title": "清境・樹屋",
+    "desc": "依原行程對照雲南風情景觀山莊，選用當次樹屋外觀。",
+    "photo": {
+      "file": "record-9671.webp",
+      "alt": "清境樹屋外觀",
+      "credit": "使用者實拍",
+      "url": null,
+      "kind": "original"
+    }
+  }
 ];
-const CHECKS={
- book:[
- '藍色城堡：確認10/8 22:00–23:00 Late Check-in、最晚入住、夜間電話、入口與停車；確認隔天08:30早餐是否供應／包含。',
- '米洛克：核對10/9房型、無早餐方案、入住退房、停車、付款與取消規則。',
- '雲南風情：核對10/10「360°地標景樹屋」對應房型、入住退房、隔天最早早餐、停車與入口。',
- '麓司岸：預訂10/9 13:00雙人午餐，確認連假營業與保留座位時間。',
- '好客食事処：預訂／確認10/9 18:30雙人晚餐與停車；若無位，先問米洛克當晚可用餐選項。',
- '雲南十八怪：預訂10/10 18:00雙人晚餐，確認份量、套餐／單點、預訂料理及最後點餐時間。'
- ],suggest:[
- '青青草原：前晚看天候，再確認門票購買與10/11 09:30綿羊秀；無須把預購當作必須。',
- '日月作物／山影人宅：問營業、最後接客、低消、預約、合法停車；以一間主要內用，另一間短停。',
- '肆盒院／夢鄉引／方正谷：確認國慶營業與兩人座位、停車；夢鄉引確認現址。返程午餐保留取消彈性。',
- '魚池茶族早餐店：確認10/10早餐時段，前晚準備麵包作備案。',
- '將訂房訂位確認、電話、導航存入手機；下載離線地圖，北返導航改為安坑實際門牌。'
- ],pack:[
- '證件、駕照、信用卡與現金、訂房／訂位憑證及聯絡電話截圖。',
- '每人換洗衣物3–4套、內衣襪、睡衣、長褲與清境保暖外套／薄羽絨或刷毛。',
- '防水外套、雨傘、防滑好走的鞋、備用襪、濕衣袋、帽子與防曬。',
- '牙刷牙膏與個人盥洗用品、眼鏡／隱形眼鏡、常用藥／處方藥、暈車用品與OK繃。',
- '手機、充電線／充電器、行動電源、車充與手機支架。',
- '車用飲水、面紙、垃圾袋、零錢；檢查油量、胎況與雨刷。',
- '濾掛咖啡／茶包各2–4份、保溫杯與餅乾／堅果／麵包。確認樹屋熱水設備，器具從簡、不攜明火。',
- '清境早餐備案、北返外帶點心；保暖／雨具與藥品放手提袋。'
- ]};
-const PHOTO_SOURCES=[
- {label:'藍色城堡外觀｜現在夯什麼',url:'https://nowhot01.com/blue-castle-french-dessert/'},
- {label:'向山遊客中心｜島裕之 Hiroyuki Shima',url:'https://note.com/hiroyuki_shima/n/n1f13091ad6c0'},
- {label:'米洛克湖景浴室｜Agoda／Booking公開飯店照片',url:'https://www.agoda.com/miracolo-view-hotel/hotel/nantou-tw.html'},
- {label:'清境樹屋｜雲南風情官方房型頁',url:'https://www.yunnan.com.tw/rooms/2-cingjing-yunnan-rooms/62-treehouse.html'},
- {label:'青青草原｜KKday景點頁',url:'https://www.kkday.com/en/product/116823'}
-];
+const CHECKS = {
+  "record": [
+    "住宿名稱與房型資料，留作下次旅行參考。",
+    "保存交通、住宿與餐廳的原始確認資料。"
+  ],
+  "pack": [
+    "山區保暖外套與雨具。",
+    "防滑步行鞋、飲水、常用藥與充電用品。",
+    "開車前檢查油量、胎況與雨刷。"
+  ]
+};
