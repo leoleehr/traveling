@@ -72,23 +72,23 @@ const TRAVEL_NODES = [
   },
   {
     "trip": "2026-nantou-double-ten",
-    "name": "住在日月潭湖邊",
+    "name": "米洛克景觀飯店",
     "latlng": [
       23.872,
       120.921
     ],
     "href": "./2026-nantou-double-ten/?day=1&place=hotel#journey",
-    "note": "旅行紀錄；區域概略位置，住宿名稱未確認"
+    "note": "旅行紀錄；區域概略位置，住宿：米洛克景觀飯店"
   },
   {
     "trip": "2026-nantou-double-ten",
-    "name": "湖景住宿的早晨",
+    "name": "米洛克景觀飯店的早晨",
     "latlng": [
       23.872,
       120.921
     ],
     "href": "./2026-nantou-double-ten/?day=2&place=hotel#journey",
-    "note": "旅行紀錄；區域概略位置，住宿名稱未確認"
+    "note": "旅行紀錄；區域概略位置，住宿：米洛克景觀飯店"
   },
   {
     "trip": "2026-nantou-double-ten",

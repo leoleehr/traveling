@@ -1,4 +1,4 @@
-.route-illustration{display:block;width:100%;height:auto;border-radius:14px;background:#edf0e5}
+.route-illustration{display:block;width:100%;height:auto;border-radius:14px;background:#edf0e5}.route-illustration>rect:first-of-type{pointer-events:none}
 .route-illustration .journey-line{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
 .route-illustration .day-one{stroke:#bd7148}.route-illustration .day-two{stroke:#c49a43}.route-illustration .day-three{stroke:#538579}.route-illustration .day-four{stroke:#7775a1}
 .route-illustration .map-region{font:600 19px sans-serif;fill:#526453;letter-spacing:2px}.route-illustration .map-muted{font:13px sans-serif;fill:#84907e}.route-illustration .map-water-label{font:600 15px sans-serif;fill:#487f7d;letter-spacing:3px}.route-illustration .map-north{font:600 14px sans-serif;fill:#31594d}
